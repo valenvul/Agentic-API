@@ -16,8 +16,8 @@ model_version = "1.0.0"
 _model = RandomForestRegressor(n_estimators=10, random_state=42)
 _model.fit([[1], [2], [3], [4]], [2, 4, 6, 8])
 
-
-@api_router.get("/health")
+# the extra params are for documentation
+@api_router.get("/health", response_model=schemas.HealthResponse, status_code=200)
 ## aca definis el handler del endpoint
 def health() -> dict:
     """
@@ -30,11 +30,11 @@ def health() -> dict:
     return health.dict()
 
 
-@api_router.post("/prediction", response_model=schemas.PredictionResponse)
-def predict(input: schemas.PredictionRequest) -> schemas.PredictionResponse:
+@api_router.post("/predict", response_model=schemas.PredictionResponse, status_code=200)
+async def predict(input: schemas.PredictionRequest) -> schemas.PredictionResponse:
     """
     Make a prediction using the dummy random forest model.
     """
     features = np.array(input.features).reshape(1, -1)
-    prediction = _model.predict(features)[0]
+    prediction = await _model.predict(features)[0]
     return schemas.PredictionResponse(prediction=float(prediction))

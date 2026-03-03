@@ -15,6 +15,10 @@ class Settings:
     logging: LoggingSettings = LoggingSettings()
     PROJECT_NAME: str = "Agentic API"
 
+    # config for pydantic settings
+    class Config:
+        case_sensitive = True
+
 # loging setup
 # See: https://loguru.readthedocs.io/en/stable/overview.html#entirely-compatible-with-standard-logging  # noqa
 
@@ -51,5 +55,7 @@ def setup_app_logging(config: Settings) -> None:
         handlers=[{"sink": sys.stderr, "level": config.logging.LOGGING_LEVEL}]
     )
 
-
+#this creates a single instance of Settings at load time, this way when other modules
+#import the class Settigs from this file, what is loaded is a single shared object
+# this line is executed only once, at the start and then the settings are reused for the whole API instnce
 settings = Settings()

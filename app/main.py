@@ -11,17 +11,17 @@ from app.config import settings, setup_app_logging
 # setup logging as soon as possible so that we can log any issues during startup
 setup_app_logging(config=settings)
 
-## uvicorn is the ASGI server that will run the app. It's the most common ASGI server.
-## create the fastapi app
+# uvicorn is the ASGI server that will run the app. It's the most common ASGI server.
+# create the fastapi app
+# sets up app name and docs url
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
 
-
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     start_time = time.perf_counter()
-    response = await call_next(request)
+    response = await call_next(request) #the await plus the async before the def makes the request async
     duration_ms = (time.perf_counter() - start_time) * 1000
     logger.info(
         f"{request.method} {request.url.path} - {response.status_code} ({duration_ms:.1f}ms)"
