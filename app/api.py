@@ -27,7 +27,7 @@ def health() -> dict:
         name=settings.PROJECT_NAME, api_version=__version__, model_version=model_version
     )
 
-    return health.dict()
+    return health.model_dump()
 
 
 @api_router.post("/predict", response_model=schemas.PredictionResponse, status_code=200)
