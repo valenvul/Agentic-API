@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 from types import FrameType
 from typing import List, cast
@@ -14,6 +15,7 @@ class Settings:
     API_V1_STR: str = "/api/v1"
     logging: LoggingSettings = LoggingSettings()
     PROJECT_NAME: str = "Agentic API"
+    MODEL_PATH: str = os.getenv("MODEL_PATH", "model.pkl")
 
     # config for pydantic settings
     class Config:

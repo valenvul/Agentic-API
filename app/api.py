@@ -5,16 +5,16 @@ from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
+import joblib
 
 from app import __version__, schemas
 from app.config import settings
 
 api_router = APIRouter()
 
-# Train a dummy model at startup
-model_version = "1.0.0"
-_model = RandomForestRegressor(n_estimators=10, random_state=42)
-_model.fit([[1], [2], [3], [4]], [2, 4, 6, 8])
+_model = joblib.load(settings.MODEL_PATH)
+model = _model["model"]
+model_version = _model["version"]
 
 # the extra params are for documentation
 @api_router.get("/health", response_model=schemas.HealthResponse, status_code=200)
@@ -31,10 +31,10 @@ def health() -> dict:
 
 
 @api_router.post("/predict", response_model=schemas.PredictionResponse, status_code=200)
-async def predict(input: schemas.PredictionRequest) -> schemas.PredictionResponse:
+def predict(input: schemas.PredictionRequest) -> schemas.PredictionResponse:
     """
     Make a prediction using the dummy random forest model.
     """
     features = np.array(input.features).reshape(1, -1)
-    prediction = await _model.predict(features)[0]
+    prediction = model.predict(features)[0]
     return schemas.PredictionResponse(prediction=float(prediction))
