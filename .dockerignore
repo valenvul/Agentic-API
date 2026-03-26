@@ -1,0 +1,30 @@
+# Virtual environment
+.venv/
+
+# Tests
+tests/
+
+# Python
+__pycache__/
+*.pyc
+
+# Dev config
+pyproject.toml
+pytest.ini
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# OS
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Claude
+CLAUDE.md
