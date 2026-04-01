@@ -1,27 +1,30 @@
 # Virtual environment
 .venv/
-venv/
+
+# Tests
+tests/
 
 # Python
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
+*.pyc
 
-# Environment variables
+# Dev config
+pyproject.toml
+pytest.ini
 .env
 .env.*
 
 # IDE
 .vscode/
 .idea/
+.cursor/
 
 # OS
 .DS_Store
 
-# Model artifacts
-*.pkl
+# Git
+.git/
+.gitignore
 
 # Claude
 CLAUDE.md
