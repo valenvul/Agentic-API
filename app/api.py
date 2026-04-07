@@ -1,9 +1,5 @@
-import json
-from typing import Any
 
-from fastapi import APIRouter, HTTPException
-from fastapi.encoders import jsonable_encoder
-from sklearn.ensemble import RandomForestRegressor
+from fastapi import APIRouter
 import numpy as np
 import joblib
 

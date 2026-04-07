@@ -2,10 +2,9 @@ import logging
 import os
 import sys
 from types import FrameType
-from typing import List, cast
+from typing import cast
 
 from loguru import logger
-from pydantic import AnyHttpUrl
 from pydantic_settings import BaseSettings
 
 class LoggingSettings(BaseSettings):
