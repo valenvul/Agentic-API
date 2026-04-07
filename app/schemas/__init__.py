@@ -1,2 +1,2 @@
-from app.schemas.health import HealthResponse
-from app.schemas.prediction import PredictionRequest, PredictionResponse
+from app.schemas.health import HealthResponse as HealthResponse
+from app.schemas.prediction import PredictionRequest as PredictionRequest, PredictionResponse as PredictionResponse
