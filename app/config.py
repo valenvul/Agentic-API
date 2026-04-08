@@ -15,6 +15,8 @@ class Settings:
     logging: LoggingSettings = LoggingSettings()
     PROJECT_NAME: str = "Agentic API"
     MODEL_PATH: str = os.getenv("MODEL_PATH", "model.pkl")
+    CHROMA_DB_PATH: str = os.getenv("CHROMA_DB_PATH", "chroma_db")
+    OPEN_AI_KEY: str = os.getenv("OPEN_AI_KEY")
 
     # config for pydantic settings
     class Config:
