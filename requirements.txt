@@ -6,3 +6,10 @@ scikit-learn==1.6.1
 numpy==2.0.2
 loguru==0.7.3
 joblib==1.5.3
+
+chromadb==1.5.6
+langchain==0.3.28
+langchain-chroma==0.2.4
+langchain-core==0.3.59
+langchain-text-splitters==0.3.8
+langchain-ollama==0.3.3

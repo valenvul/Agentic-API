@@ -23,5 +23,11 @@ build/
 # Model artifacts
 *.pkl
 
+# Vector store
+chroma_db/
+
+# Data
+data/
+
 # Claude
 CLAUDE.md
