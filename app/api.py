@@ -5,6 +5,7 @@ import joblib
 
 from app import __version__, schemas
 from app.config import settings
+from app.rag import chain
 
 api_router = APIRouter()
 
@@ -14,7 +15,7 @@ model_version = _model["version"]
 
 # the extra params are for documentation
 @api_router.get("/health", response_model=schemas.HealthResponse, status_code=200)
-## aca definis el handler del endpoint
+## here is where the handler is defined
 def health() -> dict:
     """
     Root Get
@@ -34,3 +35,12 @@ def predict(input: schemas.PredictionRequest) -> schemas.PredictionResponse:
     features = np.array(input.features).reshape(1, -1)
     prediction = model.predict(features)[0]
     return schemas.PredictionResponse(prediction=float(prediction))
+
+@api_router.post("/rag", response_model=schemas.RagResponse, status_code=200)
+# make this endpoint async so the api doesn't wait for ollama to finish
+async def rag(input: schemas.RagRequest) -> schemas.RagResponse:
+    """
+    Answer a question using the uploaded files.
+    """
+    answer = await chain.invoke(input.question) 
+    return schemas.RagResponse(answer=answer)
