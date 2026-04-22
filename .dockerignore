@@ -28,3 +28,7 @@ pytest.ini
 
 # Claude
 CLAUDE.md
+
+# Data
+data/
+chroma_db/
