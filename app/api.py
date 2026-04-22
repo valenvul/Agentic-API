@@ -1,5 +1,5 @@
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 import numpy as np
 import joblib
 
@@ -42,5 +42,8 @@ async def rag(input: schemas.RagRequest) -> schemas.RagResponse:
     """
     Answer a question using the uploaded files.
     """
-    answer = await chain.invoke(input.question) 
+    try:
+        answer = await chain.ainvoke(input.question)
+    except Exception:
+        raise HTTPException(status_code=500, detail="RAG pipeline failed")
     return schemas.RagResponse(answer=answer)
